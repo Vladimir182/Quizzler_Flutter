@@ -33,20 +33,34 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
 
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.'
+  ];
+
+  int questionNumber = 0;
+
+  clickButton() {
+    setState(() {
+      questionNumber++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 25,
                 ),
@@ -66,16 +80,7 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                   backgroundColor: Colors.green,
                 ),
-                onPressed: () {
-                  setState(() {
-                    scoreKeeper.add(
-                      const Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ),
-                    );
-                  });
-                },
+                onPressed: () => clickButton(),
                 child: const Text(
                   'True',
                   style: TextStyle(
@@ -99,16 +104,7 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                   backgroundColor: Colors.red,
                 ),
-                onPressed: () {
-                  setState(() {
-                    scoreKeeper.add(
-                      const Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      ),
-                    );
-                  });
-                },
+                onPressed: () => clickButton(),
                 child: const Text(
                   'False',
                   style: TextStyle(
