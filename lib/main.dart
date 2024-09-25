@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler_flutter/quiz_brain.dart';
 
+QuizBrain quizBrain = QuizBrain();
 void main() {
   runApp(const Quizzler());
 }
@@ -33,19 +35,7 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
 
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.'
-  ];
-
   int questionNumber = 0;
-
-  clickButton() {
-    setState(() {
-      questionNumber++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +48,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                quizBrain.questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -80,7 +70,19 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                   backgroundColor: Colors.green,
                 ),
-                onPressed: () => clickButton(),
+                onPressed: () {
+                  bool correctAnswer =
+                      quizBrain.questionBank[questionNumber].questionAnswer;
+
+                  if (correctAnswer == true) {
+                    debugPrint('User got it right!');
+                  } else {
+                    debugPrint('User got it wrong');
+                  }
+                  setState(() {
+                    questionNumber++;
+                  });
+                },
                 child: const Text(
                   'True',
                   style: TextStyle(
@@ -104,7 +106,19 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                   backgroundColor: Colors.red,
                 ),
-                onPressed: () => clickButton(),
+                onPressed: () {
+                  bool correctAnswer =
+                      quizBrain.questionBank[questionNumber].questionAnswer;
+
+                  if (correctAnswer == false) {
+                    debugPrint('User got it right!');
+                  } else {
+                    debugPrint('User got it wrong');
+                  }
+                  setState(() {
+                    questionNumber++;
+                  });
+                },
                 child: const Text(
                   'False',
                   style: TextStyle(
