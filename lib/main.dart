@@ -36,8 +36,6 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
 
-  int questionNumber = 0;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +47,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                quizBrain.getQuestionText(questionNumber),
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -72,15 +70,14 @@ class _QuizPageState extends State<QuizPage> {
                   backgroundColor: Colors.green,
                 ),
                 onPressed: () {
-                  bool correctAnswer =
-                      quizBrain.qetQuestionAnswer(questionNumber);
+                  bool correctAnswer = quizBrain.qetQuestionAnswer();
                   if (correctAnswer == true) {
                     debugPrint('User got it right!');
                   } else {
                     debugPrint('User got it wrong');
                   }
                   setState(() {
-                    questionNumber++;
+                    quizBrain.nextQuestion();
                   });
                 },
                 child: const Text(
@@ -107,15 +104,14 @@ class _QuizPageState extends State<QuizPage> {
                   backgroundColor: Colors.red,
                 ),
                 onPressed: () {
-                  bool correctAnswer =
-                      quizBrain.qetQuestionAnswer(questionNumber);
+                  bool correctAnswer = quizBrain.qetQuestionAnswer();
                   if (correctAnswer == false) {
                     debugPrint('User got it right!');
                   } else {
                     debugPrint('User got it wrong');
                   }
                   setState(() {
-                    questionNumber++;
+                    quizBrain.nextQuestion();
                   });
                 },
                 child: const Text(
