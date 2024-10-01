@@ -42,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
     bool correctAnswer = quizBrain.getQuestionAnswer();
 
     setState(() {
-      if (quizBrain.isFinished()) {
+      if (quizBrain.isFinished() == true) {
         Alert(
             context: context,
             title: "Finished!",
@@ -58,8 +58,8 @@ class _QuizPageState extends State<QuizPage> {
               )
             ]).show();
 
-        scoreKeeper = [];
         quizBrain.reset();
+        scoreKeeper = [];
       } else {
         if (userPickedAnswer == correctAnswer) {
           scoreKeeper.add(
