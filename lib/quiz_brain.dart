@@ -40,7 +40,13 @@ class QuizBrain {
     return _questionBank[_questionNumber].questionText;
   }
 
-  bool qetQuestionAnswer() {
+  bool getQuestionAnswer() {
     return _questionBank[_questionNumber].questionAnswer;
   }
+
+  bool isFinished() {
+    return (_questionNumber == _questionBank.length - 1) ? true : false;
+  }
+
+  int reset() => _questionNumber = 0;
 }
